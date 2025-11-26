@@ -38,7 +38,7 @@ export default function Promptfolio() {
   const [modalPrompt, setModalPrompt] = useState<Prompt | null>(null); // null means closed
   const [showToast, setShowToast] = useState(false);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
 
   // Filter Logic (Memoized)
   const filteredPrompts = useMemo(() => {
