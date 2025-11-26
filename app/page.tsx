@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { 
   Terminal, 
   Search, 
@@ -9,10 +9,10 @@ import {
   Check, 
   ChevronLeft, 
   ChevronRight, 
-  Wind,
-  Code2
+  Wind
 } from 'lucide-react';
 import { PROMPTS_DATA } from '@/lib/prompt';
+import { Prompt, Category } from '@/lib/prompt';
 
 // --- 2. Configuration & Helpers ---
 const CATEGORY_COLORS = {
@@ -25,7 +25,7 @@ const CATEGORY_COLORS = {
   'Startup': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
 };
 
-const getCategoryStyle = (cat) => CATEGORY_COLORS[cat] || 'bg-slate-700/50 text-slate-300 border-slate-600';
+const getCategoryStyle = (cat: Category) => CATEGORY_COLORS[cat] || 'bg-slate-700/50 text-slate-300 border-slate-600';
 
 // --- 3. Main Application Component ---
 export default function Promptfolio() {
@@ -33,7 +33,7 @@ export default function Promptfolio() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
-  const [modalPrompt, setModalPrompt] = useState(null); // null means closed
+  const [modalPrompt, setModalPrompt] = useState<Prompt | null>(null); // null means closed
   const [showToast, setShowToast] = useState(false);
 
   const itemsPerPage = 10;
@@ -58,7 +58,9 @@ export default function Promptfolio() {
   
   // Ensure we don't stay on a dead page if filter changes
   useEffect(() => {
-    setCurrentPage(1);
+    setTimeout(() => {
+      setCurrentPage(1);
+    }, 0);
   }, [selectedCategory, searchQuery]);
 
   const currentPrompts = useMemo(() => {
@@ -67,7 +69,7 @@ export default function Promptfolio() {
   }, [currentPage, filteredPrompts]);
 
   // Actions
-  const handleCopy = async (text) => {
+  const handleCopy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
       setShowToast(true);
@@ -220,7 +222,7 @@ export default function Promptfolio() {
                 <h3 className="text-lg font-bold text-slate-100 mb-2 group-hover:text-indigo-300 transition-colors">
                   {prompt.title}
                 </h3>
-                <p className="text-slate-400 text-sm mb-6 flex-grow line-clamp-2">
+                <p className="text-slate-400 text-sm mb-6 line-clamp-2">
                   {prompt.description}
                 </p>
                 

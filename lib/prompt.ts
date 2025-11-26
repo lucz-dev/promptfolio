@@ -1,5 +1,16 @@
 // --- 1. Database dei Prompt (Static Data) ---
-const PROMPTS_DATA = [
+export interface Prompt {
+    id: number;
+    title: string;
+    category: Category;
+    tags: string[];
+    description: string;
+    content: string;
+}
+
+export type Category = 'Frontend' | 'Backend' | 'DevOps' | 'Quality' | 'Social' | 'Ideation' | 'Startup';
+
+export const PROMPTS_DATA: Prompt[] = [
     // --- FRONTEND ---
     { id: 1, title: "Refactoring React Component", category: "Frontend", tags: ["React", "Clean Code"], description: "Ottimizza un componente React esistente per performance e leggibilità.", content: "Agisci come un Senior React Developer. Esegui un refactoring del codice seguente seguendo le best practices React 18+.\nObiettivi:\n1. Converti in Functional Component con Hooks.\n2. Usa useMemo/useCallback per le performance.\n3. Tipizzazione TypeScript rigorosa.\n\nCodice:\n[INCOLLA CODICE]" },
     { id: 2, title: "Tailwind CSS Converter", category: "Frontend", tags: ["CSS", "Tailwind"], description: "Converti CSS standard o stili inline in classi utility Tailwind.", content: "Converti il seguente CSS/SASS in classi utility Tailwind CSS. Evita valori arbitrari (es. `p-[16px]`) e usa la scala standard. Gestisci hover e focus.\n\nCSS:\n[INCOLLA CSS]" },
